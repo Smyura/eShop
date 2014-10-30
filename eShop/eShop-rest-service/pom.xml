@@ -7,13 +7,28 @@
     <artifactId>eShop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>eShop-service-interface</artifactId>
-  <name>eShop-service-interface</name>
+  <artifactId>eShop-rest-service</artifactId>
+  <name>eShop-rest-service</name>
   <url>http://maven.apache.org</url>
+  <packaging>war</packaging>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+
   <dependencies>
+	<dependency>
+		<groupId>com.ua.myprojects</groupId>
+		<artifactId>eShop-service-interface</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+	<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+	</dependency>
+	
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -21,4 +36,18 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${build.version}</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <finalName>eShop_service</finalName>
+  </build>
 </project>

@@ -14,14 +14,27 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <build.version>2.3.2</build.version>
     <resteasy.version>2.3.6.Final</resteasy.version>
+    <slf4j.version>1.7.5</slf4j.version>
   </properties>
 
   <modules>
     <module>eShop-service-interface</module>
+    <module>eShop-rest-service</module>
     <module>eShop-gwt</module>
   </modules>
 
   <dependencies>
+  	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${slf4j.version}</version>
+	</dependency>
+ 	<dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.6.4</version>
+    </dependency>
+ 
   	<dependency>
 		<groupId>org.jboss.resteasy</groupId>
 		<artifactId>resteasy-jaxrs</artifactId>

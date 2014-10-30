@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import com.ua.myprojects.eshop.service.model.Category;
 
 @Path("/categories")
-public interface CategoriesServiceInterface {
+public interface CategoryServiceInterface {
 	@GET
 	@Produces("application/json")
 	List<Category> queryCategories();
