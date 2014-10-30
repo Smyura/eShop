@@ -13,13 +13,21 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <build.version>2.3.2</build.version>
+    <resteasy.version>2.3.6.Final</resteasy.version>
   </properties>
 
   <modules>
+    <module>eShop-service-interface</module>
     <module>eShop-gwt</module>
   </modules>
 
   <dependencies>
+  	<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-jaxrs</artifactId>
+		<version>${resteasy.version}</version>
+		<scope>provided</scope>
+	</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
