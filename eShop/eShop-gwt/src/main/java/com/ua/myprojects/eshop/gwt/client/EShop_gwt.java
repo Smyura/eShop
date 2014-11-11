@@ -1,38 +1,36 @@
 package com.ua.myprojects.eshop.gwt.client;
 
-import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.ua.myprojects.eshop.service.model.Category;
 
 public class EShop_gwt implements EntryPoint {
-	private final CategoryServiceAsyncInterface service = GWT.create(CategoryServiceAsyncInterface.class);
+	Logger logger = Logger.getLogger(EShop_gwt.class.getName());
+
+	private final CategoryServiceAsync service = GWT.create(CategoryService.class);
 
 	@Override
 	public void onModuleLoad() {
-		System.out.println("--- Running GWT App");
+		logger.info("--- Running GWT App");
+		// System.out.println("--- Running GWT App");
 
-		service.queryCategories(new AsyncCallback<List<Category>>() {
+		service.queryCategories(new AsyncCallback<String>() {
 
 			@Override
 			public void onFailure(Throwable error) {
-				System.out.println("FAILED");
-
+				logger.info("FAILED: \n" + error.getMessage());
 			}
 
 			@Override
-			public void onSuccess(List<Category> response) {
-				System.out.println("SUCCESS");
-				for (Category category : response) {
-					System.out.println("/t" + category.getName());
-				}
-
+			public void onSuccess(String response) {
+				logger.info("SUCCESS");
+				logger.info("/t" + response);
 			}
 		});
 
-		System.out.println("--- Exit GWT App");
+		logger.info("--- Exit GWT App");
 	}
 
 }

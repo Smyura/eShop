@@ -5,7 +5,15 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
+ <!-- <servlet>
+    <servlet-name>servlet</servlet-name>
+    <servlet-class>com.ua.myprojects.eshop.gwt.server.CategoryServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/eShop_gwt/categories</url-pattern>
+  </servlet-mapping> -->
   
   <!-- Default page to serve -->
   <welcome-file-list>

@@ -16,9 +16,20 @@
       <gwtVersion>2.5.1</gwtVersion>
       <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+       <build.version>2.3.2</build.version>
   </properties>
 
   <dependencies>
+  	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${slf4j.version}</version>
+	</dependency>
+ 	<dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.6.4</version>
+    </dependency>
   	<dependency>
 		<groupId>com.ua.myprojects</groupId>
 		<artifactId>eShop-service-interface</artifactId>
@@ -91,8 +102,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${build.version}</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			
