@@ -9,14 +9,13 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public class EShop_gwt implements EntryPoint {
 	Logger logger = Logger.getLogger(EShop_gwt.class.getName());
 
-	private final CategoryServiceAsync service = GWT.create(CategoryService.class);
+	private final CategoryServiceAsync categoryService = GWT.create(CategoryService.class);
 
 	@Override
 	public void onModuleLoad() {
 		logger.info("--- Running GWT App");
-		// System.out.println("--- Running GWT App");
 
-		service.queryCategories(new AsyncCallback<String>() {
+		categoryService.queryCategories(new AsyncCallback<String>() {
 
 			@Override
 			public void onFailure(Throwable error) {
@@ -26,7 +25,7 @@ public class EShop_gwt implements EntryPoint {
 			@Override
 			public void onSuccess(String response) {
 				logger.info("SUCCESS");
-				logger.info("/t" + response);
+				logger.info("response: " + response);
 			}
 		});
 
