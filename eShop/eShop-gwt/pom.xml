@@ -1,58 +1,59 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.ua.myprojects</groupId>
-    <artifactId>eShop</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>eShop-gwt</artifactId>
-  <name>eShop-gwt</name>
-  <url>http://maven.apache.org</url>
-  <packaging>war</packaging>
-  
-  <properties>
-      <gwtVersion>2.5.1</gwtVersion>
-      <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-       <build.version>2.3.2</build.version>
-  </properties>
-
-  <dependencies>
-  	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-api</artifactId>
-		<version>${slf4j.version}</version>
-	</dependency>
- 	<dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.6.4</version>
-    </dependency>
-  	<dependency>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
 		<groupId>com.ua.myprojects</groupId>
-		<artifactId>eShop-service-interface</artifactId>
-		<version>${project.version}</version>
-	</dependency>
-    <dependency>
-		<groupId>com.google.gwt</groupId>
-        <artifactId>gwt-servlet</artifactId>
-        <version>${gwtVersion}</version>
-        <scope>runtime</scope>
-    </dependency>
-    <dependency>
+		<artifactId>eShop</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>eShop-gwt</artifactId>
+	<name>eShop-gwt</name>
+	<url>http://maven.apache.org</url>
+	<packaging>war</packaging>
+
+	<properties>
+		<gwtVersion>2.5.1</gwtVersion>
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.version>2.3.2</build.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ua.myprojects</groupId>
+			<artifactId>eShop-service-interface</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-  </dependencies>
-  
-  <build>
+	</dependencies>
+
+	<build>
 		<finalName>eShop</finalName>
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-		
+
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -77,26 +78,22 @@
 
 				</configuration>
 			</plugin>
-			
+
 			<!-- Copy static web files before executing gwt:run -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<executions>
-					<!-- <execution>
-						ewubnhn: 2013-09-10 Changed phase phase for this from compile to package, since it fails @ compile (no jar)
-						<phase>package</phase>
-						<goals>
-							<goal>exploded</goal>
-						</goals>
-					</execution> -->
+					<!-- <execution> ewubnhn: 2013-09-10 Changed phase phase for this from 
+						compile to package, since it fails @ compile (no jar) <phase>package</phase> 
+						<goals> <goal>exploded</goal> </goals> </execution> -->
 				</executions>
 				<configuration>
 					<webappDirectory>${webappDirectory}</webappDirectory>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -106,8 +103,8 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			
-			<!-- <plugin>
+
+			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.1.0.Final</version>
@@ -117,10 +114,12 @@
 						<goals>
 							<goal>deploy</goal>
 						</goals>
+						<!-- <configuration> <groupId>postgresql</groupId> <artifactId>postgresql</artifactId> 
+							<name>postgresql.jar</name> </configuration> -->
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
-		
+
 	</build>
 </project>

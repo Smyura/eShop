@@ -21,10 +21,15 @@ public class CategoryService implements CategoryServiceInterface {
 
 		Category category = new Category();
 		category.setName("category1");
+		Category category2 = new Category();
+		category2.setName("category2");
+		Category category3 = new Category();
+		category3.setName("category3");
 
 		List<Category> categories = new ArrayList<Category>();
 		categories.add(category);
-		logger.info(categories.get(0).getName());
+		categories.add(category2);
+		categories.add(category3);
 
 		// TODO lets use AOP here
 		logger.info("--- Ending " + Thread.currentThread().getStackTrace()[1].getMethodName() + " !");
