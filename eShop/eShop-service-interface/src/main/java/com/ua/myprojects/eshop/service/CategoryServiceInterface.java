@@ -12,5 +12,9 @@ import com.ua.myprojects.eshop.service.model.Category;
 public interface CategoryServiceInterface {
 	@GET
 	@Produces("application/json")
-	List<Category> queryCategories();
+	List<Category> queryCategoriesTitles();
+
+	@GET
+	@Produces("application/json")
+	List<String> queryCategoriesNames(String title);
 }

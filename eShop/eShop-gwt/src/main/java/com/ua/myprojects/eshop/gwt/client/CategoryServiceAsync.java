@@ -5,5 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface CategoryServiceAsync {
-	void queryCategories(AsyncCallback<List<String>> list);
+	void queryCategoriesTitles(AsyncCallback<List<String>> titles);
+
+	void queryCategoriesNames(String title, AsyncCallback<List<String>> names);
 }

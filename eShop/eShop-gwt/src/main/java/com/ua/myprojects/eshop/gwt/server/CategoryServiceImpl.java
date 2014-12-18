@@ -11,8 +11,8 @@ import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ua.myprojects.eshop.gwt.client.CategoryService;
+import com.ua.myprojects.eshop.gwt.model.Category;
 import com.ua.myprojects.eshop.service.CategoryServiceInterface;
-import com.ua.myprojects.eshop.service.model.Category;
 
 public class CategoryServiceImpl extends RemoteServiceServlet implements CategoryService {
 	Logger logger = Logger.getLogger(CategoryServiceImpl.class.getName());
@@ -20,20 +20,37 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 	// TODO thought property
 	private String url = "http://localhost:8080/eShop_service";
 	private static final long serialVersionUID = 1L;
+	private CategoryServiceInterface service;
 
 	@Override
-	public List<String> queryCategories() {
-		CategoryServiceInterface service = initService(CategoryServiceInterface.class);
-		List<Category> categoriesService = service.queryCategories();
+	public List<String> queryCategoriesTitles() {
+		service = initService(CategoryServiceInterface.class);
+
+		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategoriesTitles();
 		logger.info("categoriesService size: " + categoriesService.size());
-		List<String> categoriesGui = new ArrayList<String>();
-		for (Category category : categoriesService) {
-			categoriesGui.add(category.getName());
+
+		List<Category> categoriesGui = new ArrayList<Category>();
+		List<String> categoriesTitlesGui = new ArrayList<String>();
+		for (com.ua.myprojects.eshop.service.model.Category category : categoriesService) {
+			Category categoryGui = new Category();
+			categoryGui.setTitle(category.getTitle());
+			categoryGui.setNames(category.getNames());
+			categoriesTitlesGui.add(category.getTitle());
+			categoriesGui.add(categoryGui);
 		}
 
 		// TODO clarify: How does GUI return from server gwt to client gwt? Are
 		// they complex types or simple ?
-		return categoriesGui;
+		return categoriesTitlesGui;
+	}
+
+	@Override
+	public List<String> queryCategoriesNames(String title) {
+		if (service == null) {
+			return null;
+		}
+
+		return service.queryCategoriesNames(title);
 	}
 
 	private <T> T initService(Class<T> clazz) {

@@ -7,5 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("categories")
 public interface CategoryService extends RemoteService {
-	List<String> queryCategories();
+	List<String> queryCategoriesTitles();
+
+	List<String> queryCategoriesNames(String title);
 }

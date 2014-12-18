@@ -1,31 +1,30 @@
 package com.ua.myprojects.eshop.gwt.client;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ua.myprojects.eshop.gwt.client.callback.QueryCatygoriesTitelsCallback;
 
 public class EShop_gwt implements EntryPoint {
-	Logger logger = Logger.getLogger(EShop_gwt.class.getName());
+	private Logger logger = Logger.getLogger(EShop_gwt.class.getName());
 
 	private final CategoryServiceAsync categoryService = GWT.create(CategoryService.class);
 
 	@Override
 	public void onModuleLoad() {
-		logger.info("--- Running GWT App");
-
 		createUserPanel();
-		createPhoneSearchPanel();
+		createLogoSearchPanel();
 		createCategoriesTabPanel();
-		logger.info("--- Exit GWT App");
+		// logger.info("--- Exit GWT App");
 	}
 
 	private void createUserPanel() {
@@ -36,38 +35,36 @@ public class EShop_gwt implements EntryPoint {
 		RootPanel.get("USER_PANEL").add(userPanel);
 	}
 
-	private void createPhoneSearchPanel() {
-		VerticalPanel integratePhoneSearchPanel = new VerticalPanel();
-		integratePhoneSearchPanel.setStylePrimaryName("logoAndSearchPanel");
-		RootPanel.get("LOGO_AND_SEARCH_PANEL").add(integratePhoneSearchPanel);
+	private void createLogoSearchPanel() {
+		HorizontalPanel integratedLogoSearchPanel = new HorizontalPanel();
+		integratedLogoSearchPanel.setStylePrimaryName("logoAndSearchPanel");
+
+		HorizontalPanel searchPanel = new HorizontalPanel();
+		Label phoneLabel = new Label("(044)515-95-05");
+		TextBox searchTxBox = new TextBox();
+		Button searchButton = new Button("Search");
+
+		phoneLabel.setStylePrimaryName("phoneLabel");
+		searchTxBox.setStylePrimaryName("searchTxBox");
+		searchButton.setStylePrimaryName("searchButton");
+		searchPanel.add(searchTxBox);
+		searchPanel.add(searchButton);
+		VerticalPanel phoneSearchPanel = new VerticalPanel();
+		phoneSearchPanel.add(phoneLabel);
+		phoneSearchPanel.add(searchPanel);
+
+		integratedLogoSearchPanel.add(new Image("images/shop_logo.jpg"));
+		integratedLogoSearchPanel.add(phoneSearchPanel);
+
+		RootPanel.get("LOGO_AND_SEARCH_PANEL").add(integratedLogoSearchPanel);
 	}
 
 	private void createCategoriesTabPanel() {
 		final TabPanel categotiesTabBar = new TabPanel();
 
-		categoryService.queryCategories(new AsyncCallback<List<String>>() {
-
-			@Override
-			public void onFailure(Throwable error) {
-				logger.info("FAILED: \n" + error.getMessage());
-			}
-
-			@Override
-			public void onSuccess(List<String> categories) {
-				logger.info("SUCCESS");
-				for (String category : categories) {
-					HorizontalPanel categotriesPanel = new HorizontalPanel();
-
-					String productTypeName = "123";
-					Anchor productTypeAnchor = new Anchor(productTypeName);
-					categotriesPanel.add(productTypeAnchor);
-
-					categotiesTabBar.add(categotriesPanel, category);
-
-					logger.info("response: " + category);
-				}
-			}
-		});
+		categoryService
+				.queryCategoriesTitles(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
+		categoryService.queryCategoriesNames(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
 
 		RootPanel.get("PRODUCT_CATEGORIES_TAB_PANEL").add(categotiesTabBar);
 	}
