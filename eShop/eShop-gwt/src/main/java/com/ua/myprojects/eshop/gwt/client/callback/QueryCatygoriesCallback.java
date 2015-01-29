@@ -9,8 +9,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.ua.myprojects.eshop.gwt.shared.model.Category;
 
-public class QueryCatygoriesTitelsCallback implements AsyncCallback<List<Category>> {
-	private Logger logger = Logger.getLogger(QueryCatygoriesTitelsCallback.class.getName());
+public class QueryCatygoriesCallback implements AsyncCallback<List<Category>> {
+	private Logger logger = Logger.getLogger(QueryCatygoriesCallback.class.getName());
 	private TabPanel categotiesTabBar;
 
 	@Override
@@ -29,8 +29,6 @@ public class QueryCatygoriesTitelsCallback implements AsyncCallback<List<Categor
 				categotriesPanel.add(productTypeAnchor);
 			}
 			categotiesTabBar.add(categotriesPanel, category.getTitle());
-
-			logger.info("response: " + category.getTitle());
 		}
 	}
 

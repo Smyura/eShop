@@ -24,10 +24,10 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 
 	@Override
 	public List<Category> queryCategoriesTitles() {
+		// TODO it's too redundant to init service per request
 		service = initService(CategoryServiceInterface.class);
 
 		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategoriesTitles();
-		logger.info("categoriesService size: " + categoriesService.size());
 
 		List<Category> categoriesGui = new ArrayList<Category>();
 		List<String> categoriesTitlesGui = new ArrayList<String>();
@@ -39,8 +39,6 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 			categoriesGui.add(categoryGui);
 		}
 
-		// TODO clarify: How does GUI return from server gwt to client gwt? Are
-		// they complex types or simple ?
 		return categoriesGui;
 	}
 

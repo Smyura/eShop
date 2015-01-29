@@ -1,9 +1,8 @@
 package com.ua.myprojects.eshop.gwt.client;
 
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -12,10 +11,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.ua.myprojects.eshop.gwt.client.callback.QueryCatygoriesTitelsCallback;
+import com.ua.myprojects.eshop.gwt.client.callback.QueryCatygoriesCallback;
 
 public class EShop_gwt implements EntryPoint {
-	private Logger logger = Logger.getLogger(EShop_gwt.class.getName());
+	// private Logger logger = Logger.getLogger(EShop_gwt.class.getName());
 
 	private final CategoryServiceAsync categoryService = GWT.create(CategoryService.class);
 
@@ -24,7 +23,6 @@ public class EShop_gwt implements EntryPoint {
 		createUserPanel();
 		createLogoSearchPanel();
 		createCategoriesTabPanel();
-		// logger.info("--- Exit GWT App");
 	}
 
 	private void createUserPanel() {
@@ -61,12 +59,12 @@ public class EShop_gwt implements EntryPoint {
 
 	private void createCategoriesTabPanel() {
 		final TabPanel categoriesTabBar = new TabPanel();
+		categoriesTabBar.setAnimationEnabled(true);
+		categoriesTabBar.getElement().getStyle().setMarginBottom(10.0, Unit.PX);
 
-		categoryService
-				.queryCategoriesTitles(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categoriesTabBar));
-		// categoryService.queryCategoriesNames(new
-		// QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
+		categoryService.queryCategoriesTitles(new QueryCatygoriesCallback().addCategotiesTabBar(categoriesTabBar));
 
+		// RootLayoutPanel.get().add(categoriesTabBar);
 		RootPanel.get("PRODUCT_CATEGORIES_TAB_PANEL").add(categoriesTabBar);
 	}
 
