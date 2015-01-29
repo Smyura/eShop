@@ -7,8 +7,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TabPanel;
+import com.ua.myprojects.eshop.gwt.shared.model.Category;
 
-public class QueryCatygoriesTitelsCallback implements AsyncCallback<List<String>> {
+public class QueryCatygoriesTitelsCallback implements AsyncCallback<List<Category>> {
 	private Logger logger = Logger.getLogger(QueryCatygoriesTitelsCallback.class.getName());
 	private TabPanel categotiesTabBar;
 
@@ -18,22 +19,22 @@ public class QueryCatygoriesTitelsCallback implements AsyncCallback<List<String>
 	}
 
 	@Override
-	public void onSuccess(List<String> categoriesTitle) {
+	public void onSuccess(List<Category> categoriesTitle) {
 		logger.info("QueryCategories response status: SUCCESS");
-		for (String category : categoriesTitle) {
+		for (Category category : categoriesTitle) {
 			HorizontalPanel categotriesPanel = new HorizontalPanel();
 
-			String productTypeName = "123";
-			Anchor productTypeAnchor = new Anchor(productTypeName);
-			categotriesPanel.add(productTypeAnchor);
+			for (String productTypeName : category.getNames()) {
+				Anchor productTypeAnchor = new Anchor(productTypeName);
+				categotriesPanel.add(productTypeAnchor);
+			}
+			categotiesTabBar.add(categotriesPanel, category.getTitle());
 
-			categotiesTabBar.add(categotriesPanel, category);
-
-			logger.info("response: " + category);
+			logger.info("response: " + category.getTitle());
 		}
 	}
 
-	public AsyncCallback<List<String>> addCategotiesTabBar(TabPanel categotiesTabBar) {
+	public AsyncCallback<List<Category>> addCategotiesTabBar(TabPanel categotiesTabBar) {
 		this.categotiesTabBar = categotiesTabBar;
 		return this;
 	}

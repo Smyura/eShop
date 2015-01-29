@@ -1,10 +1,15 @@
-package com.ua.myprojects.eshop.gwt.model;
+package com.ua.myprojects.eshop.gwt.shared.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Category {
+public class Category implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private List<String> names;
+
+	public Category() {
+	}
 
 	public String getTitle() {
 		return title;

@@ -60,13 +60,14 @@ public class EShop_gwt implements EntryPoint {
 	}
 
 	private void createCategoriesTabPanel() {
-		final TabPanel categotiesTabBar = new TabPanel();
+		final TabPanel categoriesTabBar = new TabPanel();
 
 		categoryService
-				.queryCategoriesTitles(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
-		categoryService.queryCategoriesNames(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
+				.queryCategoriesTitles(new QueryCatygoriesTitelsCallback().addCategotiesTabBar(categoriesTabBar));
+		// categoryService.queryCategoriesNames(new
+		// QueryCatygoriesTitelsCallback().addCategotiesTabBar(categotiesTabBar));
 
-		RootPanel.get("PRODUCT_CATEGORIES_TAB_PANEL").add(categotiesTabBar);
+		RootPanel.get("PRODUCT_CATEGORIES_TAB_PANEL").add(categoriesTabBar);
 	}
 
 }

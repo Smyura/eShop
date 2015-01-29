@@ -11,7 +11,7 @@ import org.jboss.resteasy.client.core.executors.ApacheHttpClient4Executor;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ua.myprojects.eshop.gwt.client.CategoryService;
-import com.ua.myprojects.eshop.gwt.model.Category;
+import com.ua.myprojects.eshop.gwt.shared.model.Category;
 import com.ua.myprojects.eshop.service.CategoryServiceInterface;
 
 public class CategoryServiceImpl extends RemoteServiceServlet implements CategoryService {
@@ -23,7 +23,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 	private CategoryServiceInterface service;
 
 	@Override
-	public List<String> queryCategoriesTitles() {
+	public List<Category> queryCategoriesTitles() {
 		service = initService(CategoryServiceInterface.class);
 
 		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategoriesTitles();
@@ -41,7 +41,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 
 		// TODO clarify: How does GUI return from server gwt to client gwt? Are
 		// they complex types or simple ?
-		return categoriesTitlesGui;
+		return categoriesGui;
 	}
 
 	@Override
