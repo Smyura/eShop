@@ -9,6 +9,4 @@ import com.ua.myprojects.eshop.gwt.shared.model.Category;
 @RemoteServiceRelativePath("categories")
 public interface CategoryService extends RemoteService {
 	List<Category> queryCategoriesTitles();
-
-	List<String> queryCategoriesNames(String title);
 }

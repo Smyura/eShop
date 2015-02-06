@@ -7,6 +7,4 @@ import com.ua.myprojects.eshop.gwt.shared.model.Category;
 
 public interface CategoryServiceAsync {
 	void queryCategoriesTitles(AsyncCallback<List<Category>> titles);
-
-	void queryCategoriesNames(String title, AsyncCallback<List<String>> names);
 }

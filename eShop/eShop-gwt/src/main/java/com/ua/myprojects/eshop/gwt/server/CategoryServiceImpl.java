@@ -27,7 +27,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 		// TODO it's too redundant to init service per request
 		service = initService(CategoryServiceInterface.class);
 
-		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategoriesTitles();
+		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategories();
 
 		List<Category> categoriesGui = new ArrayList<Category>();
 		List<String> categoriesTitlesGui = new ArrayList<String>();
@@ -40,15 +40,6 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 		}
 
 		return categoriesGui;
-	}
-
-	@Override
-	public List<String> queryCategoriesNames(String title) {
-		if (service == null) {
-			return null;
-		}
-
-		return service.queryCategoriesNames(title);
 	}
 
 	private <T> T initService(Class<T> clazz) {
