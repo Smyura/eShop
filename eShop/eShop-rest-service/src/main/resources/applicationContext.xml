@@ -12,6 +12,15 @@
 	<!-- <context:property-placeholder
 		ignore-unresolvable="true" order="10" location="classpath:jdbc.properties" /> -->
 		
-		<util:properties id="jdbcProperties" location="classpath:jdbc.properties" /> 	
+		<!-- <context:component-scan base-package="com.ua.myprojects.eshop.service" />
+		<context:property-placeholder location="classpath:jdbc.properties"/> -->
+		
+<!-- 		<util:properties id="jdbcProperties" location="classpath:jdbc.properties" /> 	 -->
+
+<!-- <util:properties id="jdbcProperties" location="classpath:/jdbc.properties" />
+    <context:property-placeholder properties-ref="jdbcProperties" />
+    <context:component-scan base-package="com.ua.myprojects.eshop.service" /> -->
+    
+    <util:properties id="jdbcProperties" location="classpath\*:/jdbc.properties" /> 
 
 </beans>

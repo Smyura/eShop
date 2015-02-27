@@ -11,25 +11,27 @@
 		<param-value>true</param-value>
 	</context-param>
 	
+	<listener>
+		<listener-class>
+			org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+		</listener-class>
+	</listener>
+ 	<listener>
+    	<listener-class>
+    		org.jboss.resteasy.plugins.spring.SpringContextLoaderListener
+    	</listener-class>
+  	</listener>
+ <!--
+  	 <context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>classpath:applicationContext.xml</param-value>
+  	</context-param> -->
+  	
 	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/</param-value>
 	</context-param>
-	
-	<listener>
-		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
-	</listener>
-	
-	<!-- <listener>
-    	<listener-class>org.jboss.resteasy.plugins.spring.SpringContextLoaderListener</listener-class>
-  	</listener> -->
  
- 	<!-- <context-param>
-    	<param-name>contextConfigLocation</param-name>
-    	<param-value>classpath:applicationContext.xml</param-value>
-  	</context-param> -->
-	
-
 	<servlet>
 		<servlet-name>resteasy-servlet</servlet-name>
 		<servlet-class>
