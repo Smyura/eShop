@@ -30,6 +30,37 @@ public class JdbcPropertiesReaderImpl implements JdbcPropertiesReader {
 			logger.info("ERROR: can't read " + EshopProperties.JDBC.getPropertyName() + "property");
 			return null;
 		}
-		return jdbc.getProperty("host");
+		return jdbc.getProperty(EshopPropertiesFields.HOST.name());
 	}
+
+	@Override
+	public String getConnectionType() {
+		return jdbc.getProperty(EshopPropertiesFields.CONNECTION_TYPE.name());
+	}
+
+	@Override
+	public String getPort() {
+		return jdbc.getProperty(EshopPropertiesFields.PORT.name());
+	}
+
+	@Override
+	public String getDbName() {
+		return jdbc.getProperty(EshopPropertiesFields.DATA_BASE_NAME.name());
+	}
+
+	@Override
+	public String getDbType() {
+		return jdbc.getProperty(EshopPropertiesFields.DATA_BASE_TYPE.name());
+	}
+
+	@Override
+	public String getUserName() {
+		return jdbc.getProperty(EshopPropertiesFields.USER_NAME.name());
+	}
+
+	@Override
+	public String getPassword() {
+		return jdbc.getProperty(EshopPropertiesFields.PASSWORD.name());
+	}
+
 }

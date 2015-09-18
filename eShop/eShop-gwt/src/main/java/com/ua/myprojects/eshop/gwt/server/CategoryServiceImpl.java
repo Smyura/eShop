@@ -1,6 +1,7 @@
 package com.ua.myprojects.eshop.gwt.server;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 		service = initService(CategoryServiceInterface.class);
 
 		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategories();
+		Collections.sort(categoriesService);
 
 		List<Category> categoriesGui = new ArrayList<Category>();
 		List<String> categoriesTitlesGui = new ArrayList<String>();
@@ -40,6 +42,10 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 		}
 
 		return categoriesGui;
+	}
+
+	private void sortCategories(List<com.ua.myprojects.eshop.service.model.Category> categories) {
+
 	}
 
 	private <T> T initService(Class<T> clazz) {

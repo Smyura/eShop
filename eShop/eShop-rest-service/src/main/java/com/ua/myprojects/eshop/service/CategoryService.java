@@ -6,51 +6,29 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ua.myprojects.eshop.properties.JdbcPropertiesReader;
+import com.ua.myprojects.eshop.dao.Dao;
 import com.ua.myprojects.eshop.service.model.Category;
 
 @Named
 public class CategoryService implements CategoryServiceInterface {
 	private final Logger logger = LoggerFactory.getLogger(CategoryService.class);
-
 	@Inject
-	private JdbcPropertiesReader jdbcPropertiesReader;
+	private Dao dao;
 
 	@Override
 	public List<Category> queryCategories() {
 		// TODO lets use AOP here
 		logger.info("--- Starting " + Thread.currentThread().getStackTrace()[1].getMethodName() + " ...");
 
-		Category category1 = new Category();
-		category1.setTitle("Notebooks, Pads, PCs");
-		List<String> names1 = new ArrayList<String>();
-		names1.add("Notebooks");
-		names1.add("Pads");
-		names1.add("PCs");
-		category1.setNames(names1);
-
-		Category category2 = new Category();
-		category2.setTitle("Phones");
-		List<String> names2 = new ArrayList<String>();
-		names2.add("Mobile phones");
-		names2.add("Radio phones");
-		category2.setNames(names2);
-
-		Category category3 = new Category();
-		category3.setTitle("Home technics");
-		List<String> names3 = new ArrayList<String>();
-		names3.add("Air conditioners");
-		names3.add("Frizers");
-		names3.add("TVs");
-		category3.setNames(names3);
-
-		List<Category> categories = new ArrayList<Category>();
-		categories.add(category1);
-		categories.add(category2);
-		categories.add(category3);
+		List<Category> categories = dao.queryCategories();
+		if (CollectionUtils.isEmpty(categories)) {
+			logger.info("--- No Categories in the DB");
+			return new ArrayList<Category>();
+		}
 
 		// TODO lets use AOP here
 		logger.info("--- Ending " + Thread.currentThread().getStackTrace()[1].getMethodName() + " !");

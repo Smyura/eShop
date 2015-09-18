@@ -15,10 +15,16 @@
 	<!-- To read property files with @Value usage -->
 	<!-- <context:property-placeholder order="2" location="classpath:jdbc.properties" /> -->
 
+	<bean id="jdbcPropertiesReader" class="com.ua.myprojects.eshop.properties.JdbcPropertiesReaderImpl"/>
+	<bean id="dao" class="com.ua.myprojects.eshop.dao.JdbcDaoImpl"/>
+	<bean id="connector" class="com.ua.myprojects.eshop.dao.JdbcConnector"/>
+	
 	<!-- To inject beans -->		
     <context:component-scan base-package="com.ua.myprojects.eshop.service" />
+    <context:component-scan base-package="com.ua.myprojects.eshop.dao" />
     <context:component-scan base-package="com.ua.myprojects.eshop.properties" />
+   
     
-	<bean id="jdbcPropertiesReader" class="com.ua.myprojects.eshop.properties.JdbcPropertiesReaderImpl"/>
+	
 
 </beans>

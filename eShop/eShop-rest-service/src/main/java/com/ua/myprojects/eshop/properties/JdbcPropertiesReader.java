@@ -1,7 +1,17 @@
 package com.ua.myprojects.eshop.properties;
 
 public interface JdbcPropertiesReader {
+	String getConnectionType();
 
-	public String getHost();
+	String getHost();
 
+	String getPort();
+
+	String getDbName();
+
+	String getDbType();
+
+	String getUserName();
+
+	String getPassword();
 }
