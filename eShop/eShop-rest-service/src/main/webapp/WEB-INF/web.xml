@@ -21,11 +21,11 @@
     		org.jboss.resteasy.plugins.spring.SpringContextLoaderListener
     	</listener-class>
   	</listener>
- <!--
+
   	 <context-param>
     	<param-name>contextConfigLocation</param-name>
-    	<param-value>classpath:applicationContext.xml</param-value>
-  	</context-param> -->
+    	<param-value>classpath:/applicationContext.xml</param-value>
+  	</context-param>
   	
 	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>

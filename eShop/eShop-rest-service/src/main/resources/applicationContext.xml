@@ -4,23 +4,21 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:lang="http://www.springframework.org/schema/lang" 
 	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:xsd/spring-beans-3.2.xsd
-        http://www.springframework.org/schema/context classpath:xsd/spring-context-3.2.xsd
-        http://www.springframework.org/schema/lang classpath:xsd/spring-lang-3.2.xsd
-        http://www.springframework.org/schema/util classpath:xsd/spring-util-3.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.2.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 	
-	<!-- <context:property-placeholder
-		ignore-unresolvable="true" order="10" location="classpath:jdbc.properties" /> -->
-		
-		<!-- <context:component-scan base-package="com.ua.myprojects.eshop.service" />
-		<context:property-placeholder location="classpath:jdbc.properties"/> -->
-		
-<!-- 		<util:properties id="jdbcProperties" location="classpath:jdbc.properties" /> 	 -->
+    <!-- To read property files with @Resource usage -->
+	<util:properties id="jdbcProperties" location="classpath:jdbc.properties" />
+	
+	<!-- To read property files with @Value usage -->
+	<!-- <context:property-placeholder order="2" location="classpath:jdbc.properties" /> -->
 
-<!-- <util:properties id="jdbcProperties" location="classpath:/jdbc.properties" />
-    <context:property-placeholder properties-ref="jdbcProperties" />
-    <context:component-scan base-package="com.ua.myprojects.eshop.service" /> -->
+	<!-- To inject beans -->		
+    <context:component-scan base-package="com.ua.myprojects.eshop.service" />
+    <context:component-scan base-package="com.ua.myprojects.eshop.properties" />
     
-    <util:properties id="jdbcProperties" location="classpath\*:/jdbc.properties" /> 
+	<bean id="jdbcPropertiesReader" class="com.ua.myprojects.eshop.properties.JdbcPropertiesReaderImpl"/>
 
 </beans>

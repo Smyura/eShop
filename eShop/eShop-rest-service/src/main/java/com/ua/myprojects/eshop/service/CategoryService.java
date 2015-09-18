@@ -2,29 +2,27 @@ package com.ua.myprojects.eshop.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ua.myprojects.eshop.properties.JdbcPropertiesReader;
 import com.ua.myprojects.eshop.service.model.Category;
 
 @Named
 public class CategoryService implements CategoryServiceInterface {
 	private final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
-	@Resource(name = "jdbcProperties")
-	private Properties jdbc;
+	@Inject
+	private JdbcPropertiesReader jdbcPropertiesReader;
 
 	@Override
 	public List<Category> queryCategories() {
 		// TODO lets use AOP here
 		logger.info("--- Starting " + Thread.currentThread().getStackTrace()[1].getMethodName() + " ...");
-
-		logger.info("--- -> " + jdbc.getProperty("host"));
 
 		Category category1 = new Category();
 		category1.setTitle("Notebooks, Pads, PCs");
@@ -59,20 +57,5 @@ public class CategoryService implements CategoryServiceInterface {
 
 		return categories;
 	}
-
-	// @Override
-	// public List<String> queryCategoriesNames(String title) {
-	// if (title == null) {
-	// return null;
-	// }
-	//
-	// for (Category category : categories) {
-	// if (title.equals(category.getTitle())) {
-	// return category.getNames();
-	// }
-	// }
-	//
-	// return null;
-	// }
 
 }
