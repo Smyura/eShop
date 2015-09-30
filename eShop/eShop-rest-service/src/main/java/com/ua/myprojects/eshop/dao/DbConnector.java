@@ -1,12 +1,12 @@
 package com.ua.myprojects.eshop.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
-public interface DbConnector {
-	Connection getConnection(DbConnectionRequest request) throws SQLException;
+import com.ua.myprojects.eshop.service.model.CommonResponse;
 
-	void closeConnection(ResultSet result, Statement statement, Connection connection);
+public interface DbConnector<T> {
+	CommonResponse<T> getConnection();
+
+	void closeConnection(ResultSet result, Statement statement, T connection);
 }

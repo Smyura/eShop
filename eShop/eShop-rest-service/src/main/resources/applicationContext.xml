@@ -11,20 +11,32 @@
 	
     <!-- To read property files with @Resource usage -->
 	<util:properties id="jdbcProperties" location="classpath:jdbc.properties" />
+	<util:properties id="messageTextProperties" location="classpath:messageText.properties" />
 	
 	<!-- To read property files with @Value usage -->
 	<!-- <context:property-placeholder order="2" location="classpath:jdbc.properties" /> -->
 
-	<bean id="jdbcPropertiesReader" class="com.ua.myprojects.eshop.properties.JdbcPropertiesReaderImpl"/>
-	<bean id="dao" class="com.ua.myprojects.eshop.dao.JdbcDaoImpl"/>
-	<bean id="connector" class="com.ua.myprojects.eshop.dao.JdbcConnector"/>
-	
-	<!-- To inject beans -->		
+	<!-- Beans injection -->		
     <context:component-scan base-package="com.ua.myprojects.eshop.service" />
     <context:component-scan base-package="com.ua.myprojects.eshop.dao" />
     <context:component-scan base-package="com.ua.myprojects.eshop.properties" />
+
+	<bean id="jdbcPropertiesReader" class="com.ua.myprojects.eshop.properties.JdbcPropertiesReaderImpl"/>
+	<bean id="dao" class="com.ua.myprojects.eshop.dao.JdbcDaoImpl"/>
+	<bean id="connector" class="com.ua.myprojects.eshop.dao.JdbcConnector"/>
+	<bean id="messageData" class="com.ua.myprojects.eshop.service.model.MessageData" scope="prototype"/>
+	
+	<bean id="responseBuilder" class="com.ua.myprojects.eshop.builder.CommonResponseBuilder"/>
+	
    
-    
+    <!-- Beans mapping config -->
+    <bean id="beanMapper" class="org.dozer.DozerBeanMapper">
+    	<property name="mappingFiles">
+    		<list>
+    			<value>mapping/bean-mapping.xml</value>
+    		</list>
+    	</property>
+    </bean>
 	
 
 </beans>

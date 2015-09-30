@@ -14,6 +14,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ua.myprojects.eshop.gwt.client.CategoryService;
 import com.ua.myprojects.eshop.gwt.shared.model.Category;
 import com.ua.myprojects.eshop.service.CategoryServiceInterface;
+import com.ua.myprojects.eshop.service.model.CommonResponse;
+import com.ua.myprojects.eshop.service.model.RequestStatus;
 
 public class CategoryServiceImpl extends RemoteServiceServlet implements CategoryService {
 	Logger logger = Logger.getLogger(CategoryServiceImpl.class.getName());
@@ -28,12 +30,23 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 		// TODO it's too redundant to init service per request
 		service = initService(CategoryServiceInterface.class);
 
-		List<com.ua.myprojects.eshop.service.model.Category> categoriesService = service.queryCategories();
-		Collections.sort(categoriesService);
+		CommonResponse<List<com.ua.myprojects.eshop.service.model.Category>> categoriesResponse = service
+				.queryProductCategories();
+
+		if (RequestStatus.ERROR.equals(categoriesResponse.getStatus().getRequestStatus())) {
+			String values = null;
+			for (String value : categoriesResponse.getStatus().getMessageDatas().get(0).getMsgValues()) {
+				values += value + ",";
+			}
+			logger.info("ERROR: " + categoriesResponse.getStatus().getMessageDatas().get(0).getMsgText() + " / "
+					+ values);
+			return null;
+		}
+		Collections.sort(categoriesResponse.getContent());
 
 		List<Category> categoriesGui = new ArrayList<Category>();
 		List<String> categoriesTitlesGui = new ArrayList<String>();
-		for (com.ua.myprojects.eshop.service.model.Category category : categoriesService) {
+		for (com.ua.myprojects.eshop.service.model.Category category : categoriesResponse.getContent()) {
 			Category categoryGui = new Category();
 			categoryGui.setTitle(category.getTitle());
 			categoryGui.setNames(category.getNames());

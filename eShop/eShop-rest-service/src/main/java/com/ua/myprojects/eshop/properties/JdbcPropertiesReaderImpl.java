@@ -26,10 +26,6 @@ public class JdbcPropertiesReaderImpl implements JdbcPropertiesReader {
 
 	@Override
 	public String getHost() {
-		if (jdbc == null) {
-			logger.info("ERROR: can't read " + EshopProperties.JDBC.getPropertyName() + "property");
-			return null;
-		}
 		return jdbc.getProperty(EshopPropertiesFields.HOST.name());
 	}
 

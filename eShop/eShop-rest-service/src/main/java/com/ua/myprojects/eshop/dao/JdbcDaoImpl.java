@@ -12,56 +12,53 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ua.myprojects.eshop.properties.JdbcPropertiesReader;
+import com.ua.myprojects.eshop.builder.ResponseBuilder;
 import com.ua.myprojects.eshop.service.model.Category;
+import com.ua.myprojects.eshop.service.model.CategoryType;
+import com.ua.myprojects.eshop.service.model.CommonResponse;
+import com.ua.myprojects.eshop.service.model.MessageCode;
+import com.ua.myprojects.eshop.service.model.Product;
+import com.ua.myprojects.eshop.service.model.RequestStatus;
 
 @Named
-public class JdbcDaoImpl implements Dao {
+public class JdbcDaoImpl<T> implements Dao {
 	private Logger logger = LoggerFactory.getLogger(JdbcDaoImpl.class);
 
 	@Inject
-	private JdbcPropertiesReader jdbcPropertiesReader;
+	private DbConnector<Connection> connector;
 
 	@Inject
-	private DbConnector connector;
+	private ResponseBuilder<List<Category>> responseBuilder;
 
 	// TODO move somewhere selects
 	private final static String SELECT_CATEGORIES = "SELECT n.Name, t.Title, t.Priority FROM category_names n "
 			+ "inner join  category_titles t on " + "n.CategoryTiltleID = t.ID;";
 
-	private DbConnectionRequest buildDbConnectionRequest() {
-		// TODO use here Dozer mapping
-		DbConnectionRequest request = new DbConnectionRequest();
-		request.setConnectionType(jdbcPropertiesReader.getConnectionType());
-		request.setDbName(jdbcPropertiesReader.getDbName());
-		request.setDbType(jdbcPropertiesReader.getDbType());
-		request.setHost(jdbcPropertiesReader.getHost());
-		request.setPassword(jdbcPropertiesReader.getPassword());
-		request.setPort(jdbcPropertiesReader.getPort());
-		request.setUserName(jdbcPropertiesReader.getUserName());
-		return request;
-	}
-
 	@Override
-	public List<Category> queryCategories() {
-		Connection connection = null;
+	public CommonResponse<List<Category>> queryCategories() {
+		CommonResponse<Connection> connectionResponse = null;
 		Statement statement = null;
 		ResultSet result = null;
 		List<Category> categoryList = null;
 		try {
-			connection = connector.getConnection(buildDbConnectionRequest());
-			if (connection == null) {
-				// TODO throw exception here
-				return null;
+			connectionResponse = connector.getConnection();
+			if (connectionResponse == null) {
+				logger.info("connectionResponse == null");
 			}
-			statement = connection.createStatement();
+			if (RequestStatus.ERROR.equals(connectionResponse.getStatus().getRequestStatus())) {
+				return responseBuilder.addStatus(connectionResponse.getStatus().getRequestStatus())
+						.addMessageDatas(connectionResponse.getStatus().getMessageDatas()).build();
+			}
+			statement = connectionResponse.getContent().createStatement();
 			result = statement.executeQuery(SELECT_CATEGORIES);
 			if (result == null) {
 				logger.info("No categories");
-				return null;
+				return responseBuilder.addStatus(RequestStatus.ERROR)
+						.addMessageData(MessageCode.ESHOPDB0xx_MISSING_DB_DATA, "Categories").build();
 			}
 
 			Map<String, Category> categories = new HashMap<String, Category>();
@@ -80,14 +77,27 @@ public class JdbcDaoImpl implements Dao {
 
 			categoryList = new ArrayList<Category>();
 			categoryList.addAll(categories.values());
+
+			if (CollectionUtils.isEmpty(categoryList)) {
+				return responseBuilder.addStatus(RequestStatus.ERROR)
+						.addMessageData(MessageCode.ESHOPDB0xx_MISSING_DB_DATA, "Categories").build();
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return responseBuilder.addStatus(RequestStatus.ERROR)
+					.addMessageData(MessageCode.ESHOPDB0xx_FETCHING_DB_DATA_ERROR, "Categories").build();
 		} finally {
-			connector.closeConnection(result, statement, connection);
+			if (connectionResponse == null) {
+				logger.info("connectionResponse == null");
+			}
+			connector.closeConnection(result, statement, connectionResponse.getContent());
 		}
 
-		return categoryList;
+		return responseBuilder.addStatus(RequestStatus.SUCCESS).addContent(categoryList).build();
+	}
+
+	@Override
+	public List<Product> queryProductsByCategory(CategoryType categoryName) {
+		return null;
 	}
 
 	@Override

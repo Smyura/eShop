@@ -7,10 +7,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import com.ua.myprojects.eshop.service.model.Category;
+import com.ua.myprojects.eshop.service.model.CommonResponse;
 
 @Path("/categories")
 public interface CategoryServiceInterface {
 	@GET
 	@Produces("application/json")
-	List<Category> queryCategories();
+	CommonResponse<List<Category>> queryProductCategories();
 }

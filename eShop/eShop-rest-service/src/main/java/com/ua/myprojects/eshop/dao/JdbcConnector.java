@@ -6,32 +6,69 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.inject.Inject;
+
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JdbcConnector implements DbConnector {
+import com.ua.myprojects.eshop.builder.ResponseBuilder;
+import com.ua.myprojects.eshop.properties.JdbcPropertiesReader;
+import com.ua.myprojects.eshop.service.model.CommonResponse;
+import com.ua.myprojects.eshop.service.model.MessageCode;
+import com.ua.myprojects.eshop.service.model.RequestStatus;
+
+public class JdbcConnector implements DbConnector<Connection> {
 	private Logger logger = LoggerFactory.getLogger(JdbcConnector.class);
-	private static final String HOST = "HOST";
+
+	@Inject
+	private JdbcPropertiesReader jdbcPropertiesReader;
+	@Inject
+	private Mapper beanMapper;
+
+	@Inject
+	private ResponseBuilder<Connection> responseBuilder;
+
+	private DbConnectionRequest buildDbConnectionRequest() {
+		return beanMapper.map(jdbcPropertiesReader, DbConnectionRequest.class);
+	}
 
 	@Override
-	public Connection getConnection(DbConnectionRequest request) throws SQLException {
+	public CommonResponse<Connection> getConnection() {
 		// TODO add request validation
-		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-		String url = request.getConnectionType() + ":" + request.getDbType() + "://" + request.getHost() + ":"
-				+ request.getPort() + "/" + request.getDbName() + "?user=" + request.getUserName() + "&password="
-				+ request.getPassword();
-		logger.info("Try to connect to: '" + url + "'");
-		Connection connection = DriverManager.getConnection(url);
-		if (connection == null) {
-			logger.error("ERROR: can't connect to DB server: '" + request.getHost() + ":" + request.getPort());
-			// TODO throw exception here
-			return null;
-		}
-		connection.getClientInfo().setProperty(HOST, request.getHost());
+		DbConnectionRequest request = buildDbConnectionRequest();
+		Connection connection = null;
+		try {
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
-		logger.info("Successfull connected to DB server: '" + connection.getClientInfo(HOST) + ":" + request.getPort()
-				+ "'");
-		return connection;
+			String url = request.getConnectionType() + ":" + request.getDbType() + "://" + request.getHost() + ":"
+					+ request.getPort() + "/" + request.getDbName() + "?user=" + request.getUserName() + "&password="
+					+ request.getPassword();
+			logger.info("Try to connect to: '" + url + "'");
+
+			connection = DriverManager.getConnection(url);
+			if (connection == null) {
+				logger.error("ERROR: can't connect to DB server: '" + request.getHost() + ":" + request.getPort());
+
+				return responseBuilder
+						.addStatus(RequestStatus.ERROR)
+						.addMessageData(MessageCode.ESHOPDB0xx_DB_CONNECTION_ERROR, request.getHost(),
+								request.getPort()).build();
+			}
+		} catch (SQLException e) {
+			logger.error("ERROR: exception during connection to DB server: '" + request.getHost() + ":"
+					+ request.getPort());
+			return responseBuilder.addStatus(RequestStatus.ERROR)
+					.addMessageData(MessageCode.ESHOPDB0xx_DB_CONNECTION_ERROR, request.getHost(), request.getPort())
+					.build();
+		}
+
+		// connection.getClientInfo().setProperty(HOST, request.getHost());
+		// logger.info("Successfull connected to DB server: '" +
+		// connection.getClientInfo(HOST) + ":" + request.getPort()
+		// + "'");
+		logger.info("Successfull connected to DB server: '" + request.getHost() + ":" + request.getPort() + "'");
+		return responseBuilder.addStatus(RequestStatus.SUCCESS).addContent(connection).build();
 	}
 
 	@Override
