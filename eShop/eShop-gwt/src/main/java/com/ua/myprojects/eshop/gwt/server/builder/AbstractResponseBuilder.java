@@ -1,24 +1,21 @@
-package com.ua.myprojects.eshop.builder;
+package com.ua.myprojects.eshop.gwt.server.builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.commons.collections.CollectionUtils;
+import org.dozer.inject.Inject;
 
-import com.ua.myprojects.eshop.service.model.CommonResponse;
+import com.ua.myprojects.eshop.gwt.shared.model.CommonResponse;
+import com.ua.myprojects.eshop.gwt.shared.model.MessageData;
+import com.ua.myprojects.eshop.gwt.shared.model.RequestStatus;
+import com.ua.myprojects.eshop.gwt.shared.model.StatusData;
 import com.ua.myprojects.eshop.service.model.MessageCode;
-import com.ua.myprojects.eshop.service.model.MessageData;
-import com.ua.myprojects.eshop.service.model.RequestStatus;
-import com.ua.myprojects.eshop.service.model.StatusData;
 
 public abstract class AbstractResponseBuilder<T> implements ResponseBuilder<T> {
 	private StatusData status;
 	private T content;
 
-	// TODO test - if you add second error to the list it will rewrite first
-	// error
 	@Inject
 	private MessageData messageData;
 
