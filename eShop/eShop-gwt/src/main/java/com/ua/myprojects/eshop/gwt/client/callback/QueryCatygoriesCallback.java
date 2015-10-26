@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ua.myprojects.eshop.gwt.client.util.UtilMessage;
 import com.ua.myprojects.eshop.gwt.shared.model.Category;
 import com.ua.myprojects.eshop.gwt.shared.model.CommonResponse;
 import com.ua.myprojects.eshop.gwt.shared.model.RequestStatus;
@@ -25,6 +26,7 @@ public class QueryCatygoriesCallback implements AsyncCallback<CommonResponse<Lis
 	@Override
 	public void onFailure(Throwable error) {
 		logger.info("FAILED: \n" + error.getMessage());
+		UtilMessage.showErrorDialogBox(logger, error.getMessage());
 	}
 
 	@Override
