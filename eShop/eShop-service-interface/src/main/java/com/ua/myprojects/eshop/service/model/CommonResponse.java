@@ -4,6 +4,10 @@ public class CommonResponse<T> {
 	private StatusData status;
 	private T content;
 
+	public CommonResponse() {
+		status = new StatusData();
+	}
+
 	public StatusData getStatus() {
 		return status;
 	}

@@ -2,9 +2,6 @@ package com.ua.myprojects.eshop.service.model;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
-
-import javax.annotation.Resource;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -13,16 +10,11 @@ public class MessageData {
 	private String msgText;
 	private List<String> msgValues;
 
-	@Resource(name = "messageTextProperties")
-	private Properties messageText;
+	// @Resource(name = "messageTextProperties")
+	// private Properties messageText;
 
 	public String getMsgCode() {
 		return msgCode;
-	}
-
-	public void populateMsgCode(String msgCode) {
-		this.msgText = messageText.getProperty(msgCode);
-		this.msgCode = msgCode;
 	}
 
 	public List<String> getMsgValues() {
@@ -40,15 +32,15 @@ public class MessageData {
 		}
 	}
 
-	protected void setMsgCode(String msgCode) {
+	public void setMsgCode(String msgCode) {
 		this.msgCode = msgCode;
 	}
 
-	protected void setMsgText(String msgText) {
+	public void setMsgText(String msgText) {
 		this.msgText = msgText;
 	}
 
-	protected void setMsgValues(List<String> msgValues) {
+	public void setMsgValues(List<String> msgValues) {
 		this.msgValues = msgValues;
 	}
 
