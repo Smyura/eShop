@@ -30,13 +30,12 @@ public class CategoryService implements CategoryServiceInterface {
 
 		CommonResponse<List<Category>> responseCategories = dao.queryCategories();
 		if (RequestStatus.ERROR.equals(responseCategories.getStatus().getRequestStatus())) {
-			return (CommonResponse<List<Category>>) responseBuilder.addStatus(RequestStatus.ERROR)
+			return responseBuilder.addStatus(RequestStatus.ERROR)
 					.addMessageDatas(responseCategories.getStatus().getMessageDatas()).build();
 		}
 
 		// TODO lets use AOP here
 		logger.info("--- Ending " + Thread.currentThread().getStackTrace()[1].getMethodName() + " !");
-		return (CommonResponse<List<Category>>) responseBuilder.addStatus(RequestStatus.SUCCESS)
-				.addContent(responseCategories.getContent()).build();
+		return responseBuilder.addStatus(RequestStatus.SUCCESS).addContent(responseCategories.getContent()).build();
 	}
 }
