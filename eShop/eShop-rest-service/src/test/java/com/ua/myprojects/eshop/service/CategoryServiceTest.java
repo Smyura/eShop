@@ -32,5 +32,13 @@ public class CategoryServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertNotNull(response);
 		Assert.assertEquals(response.getStatus().getRequestStatus(), RequestStatus.SUCCESS);
 		Assert.assertFalse(CollectionUtils.isEmpty(response.getContent()));
+
+//		Assert.assertEquals(response.getStatus().getRequestStatus(), RequestStatus.ERROR);
+//		Assert.assertNull(response.getContent());
+//		Assert.assertNotNull(response.getStatus().getMessageDatas());
+//		Assert.assertEquals(response.getStatus().getMessageDatas().size(), 1);
+//		Assert.assertEquals(response.getStatus().getMessageDatas().get(0).getMsgCode(),
+//				MessageCode.ESHOPDB0xx_DB_CONNECTION_ERROR.getMsgCode());
+
 	}
 }

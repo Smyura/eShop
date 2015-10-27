@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import com.ua.myprojects.eshop.service.model.CommonResponse;
 import com.ua.myprojects.eshop.service.model.MessageCode;
 import com.ua.myprojects.eshop.service.model.MessageData;
@@ -37,10 +35,10 @@ public abstract class AbstractResponseBuilder<T> implements ResponseBuilder<T> {
 			status = new StatusData();
 		}
 		List<MessageData> messageDatas = status.getMessageDatas();
-		if (CollectionUtils.isEmpty(messageDatas)) {
-			messageDatas = new ArrayList<MessageData>();
-			status.setMessageDatas(messageDatas);
-		}
+		// if (CollectionUtils.isEmpty(messageDatas)) {
+		messageDatas = new ArrayList<MessageData>();
+		status.setMessageDatas(messageDatas);
+		// }
 		messageData.populateMsgCode(code.getMsgCode());
 		messageData.populateMsgValues(values);
 		messageDatas.add(messageData);

@@ -26,7 +26,7 @@
 	<bean id="connector" class="com.ua.myprojects.eshop.dao.JdbcConnector"/>
 	<bean id="messageData" class="com.ua.myprojects.eshop.service.model.MessageData" scope="prototype"/>
 	
-	<bean id="responseBuilder" class="com.ua.myprojects.eshop.builder.CommonResponseBuilder"/>
+	<bean id="responseBuilder" class="com.ua.myprojects.eshop.builder.CommonResponseBuilder" scope="prototype"/>
 	
    
     <!-- Beans mapping config -->
