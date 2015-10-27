@@ -74,7 +74,7 @@ public class JdbcDaoImpl<T> implements Dao {
 				category.setPriority(Integer.valueOf(result.getString("Priority")));
 				category.getNames().add(result.getString("Name"));
 			}
-
+			logger.info("Successfully got data");
 			categoryList = new ArrayList<Category>();
 			categoryList.addAll(categories.values());
 
@@ -86,9 +86,6 @@ public class JdbcDaoImpl<T> implements Dao {
 			return responseBuilder.addStatus(RequestStatus.ERROR)
 					.addMessageData(MessageCode.ESHOPDB0xx_FETCHING_DB_DATA_ERROR, "Categories").build();
 		} finally {
-			if (connectionResponse == null) {
-				logger.info("connectionResponse == null");
-			}
 			connector.closeConnection(result, statement, connectionResponse.getContent());
 		}
 
