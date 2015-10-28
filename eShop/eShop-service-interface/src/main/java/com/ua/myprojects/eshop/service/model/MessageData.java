@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class MessageData {
 	private String msgCode;
 	private String msgText;
 	private List<String> msgValues;
-
-	// @Resource(name = "messageTextProperties")
-	// private Properties messageText;
 
 	public String getMsgCode() {
 		return msgCode;

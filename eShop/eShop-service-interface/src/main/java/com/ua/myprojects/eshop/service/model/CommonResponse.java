@@ -1,5 +1,9 @@
 package com.ua.myprojects.eshop.service.model;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
+@JsonSerialize(include = Inclusion.NON_NULL)
 public class CommonResponse<T> {
 	private StatusData status;
 	private T content;
