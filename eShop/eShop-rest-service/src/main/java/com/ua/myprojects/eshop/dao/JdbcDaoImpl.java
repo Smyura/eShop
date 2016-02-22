@@ -45,6 +45,7 @@ public class JdbcDaoImpl<T> implements Dao {
 		ResultSet result = null;
 		List<Category> categoryList = null;
 		try {
+			// TODO update to use connections pool
 			connectionResponse = connector.getConnection();
 			if (connectionResponse == null) {
 				logger.info("connectionResponse == null");

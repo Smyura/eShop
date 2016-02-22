@@ -52,25 +52,12 @@ public class CategoryServiceImpl extends RemoteServiceServlet implements Categor
 			for (com.ua.myprojects.eshop.service.model.MessageData messageData : response.getStatus().getMessageDatas()) {
 				// TODO map messageData
 			}
-			return responseBuilder
-			// ddd
-					.addStatus(RequestStatus.ERROR)
-					// addMessageDatas(messageDatas).
+			return responseBuilder.addStatus(RequestStatus.ERROR)
+			// addMessageDatas(messageDatas).
 					.build();
 		}
 
 		Collections.sort(response.getContent());
-
-		// List<Category> categoriesGui = new ArrayList<Category>();
-		// List<String> categoriesTitlesGui = new ArrayList<String>();
-		// for (com.ua.myprojects.eshop.service.model.Category category :
-		// response.getContent()) {
-		// Category categoryGui = new Category();
-		// categoryGui.setTitle(category.getTitle());
-		// categoryGui.setNames(category.getNames());
-		// categoriesTitlesGui.add(category.getTitle());
-		// categoriesGui.add(categoryGui);
-		// }
 
 		List<Category> categories = new ArrayList<Category>();
 		for (com.ua.myprojects.eshop.service.model.Category category : response.getContent()) {
