@@ -21,6 +21,7 @@
     <module>eShop-service-interface</module>
     <module>eShop-rest-service</module>
     <module>eShop-gwt</module>
+    <module>eShop-jaxws-service</module>
   </modules>
 
   <dependencies>

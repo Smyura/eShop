@@ -39,6 +39,7 @@ public class JdbcConnector implements DbConnector<Connection> {
 		DbConnectionRequest request = buildDbConnectionRequest();
 		Connection connection = null;
 		try {
+			// TODO fix: Register driver per request ???
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
 			String url = request.getConnectionType() + ":" + request.getDbType() + "://" + request.getHost() + ":"

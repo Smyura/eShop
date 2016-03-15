@@ -35,6 +35,7 @@ public class JdbcDaoImpl<T> implements Dao {
 	private ResponseBuilder<List<Category>> responseBuilder;
 
 	// TODO move somewhere selects
+	// TODO tables names could be changed - make it generic
 	private final static String SELECT_CATEGORIES = "SELECT n.Name, t.Title, t.Priority FROM category_names n "
 			+ "inner join  category_titles t on " + "n.CategoryTiltleID = t.ID;";
 

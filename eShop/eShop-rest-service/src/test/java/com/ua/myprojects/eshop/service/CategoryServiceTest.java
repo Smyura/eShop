@@ -45,4 +45,29 @@
 //				MessageCode.ESHOPDB0xx_DB_CONNECTION_ERROR.getMsgCode());
 //
 //	}
+
+//import junit.framework.Assert;
+//
+//import org.glassfish.jersey.server.ResourceConfig;
+//import org.glassfish.jersey.test.JerseyTest;
+//import org.junit.Test;
+//
+//import com.ua.myprojects.eshop.service.model.Category;
+//import com.ua.myprojects.eshop.service.model.CommonResponse;
+//
+//public class CategoryServiceTest extends JerseyTest {
+//	private String url = "http://localhost:8080/eShop_service";
+//	private CategoryServiceInterface service;
+//
+//	@Override
+//	protected Application configure() {
+//		return new ResourceConfig(CategoryServiceInterface.class);
+//	}
+//
+//	@Test
+//	public void testCategoryError() {
+//		CommonResponse<List<Category>> response = service.queryProductCategories();
+//		Assert.assertNotNull(response);
+//	}
+//
 // }
